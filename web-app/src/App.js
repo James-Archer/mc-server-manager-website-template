@@ -35,7 +35,7 @@ class App extends React.Component {
       {
         console.log('response:', body); // Print the error if one occurred
         const bdy = JSON.parse(body)
-        if (bdy[0] == 'Incorrect password!')
+        if (bdy[0] === 'Incorrect password!')
         {
           console.log('bad')
           this.setState({requestStatus: 1})
@@ -68,7 +68,7 @@ class App extends React.Component {
       {
         console.log('response:', body); // Print the error if one occurred
         const bdy = JSON.parse(body)
-        if (bdy[0] == 'Incorrect password!')
+        if (bdy[0] === 'Incorrect password!')
         {
           console.log('bad')
           this.setState({requestStatus: 1})
@@ -116,27 +116,28 @@ class App extends React.Component {
   }
 
   render(){
+    var error_txt, error_render
     if (this.state.requestStatus === 1)
     {
-      var error_txt = 'Incorrect password!'
-      var error_render = <p className='App-error'>{error_txt}</p>
+      error_txt = 'Incorrect password!'
+      error_render = <p className='App-error'>{error_txt}</p>
     }
     else if (this.state.requestStatus === 2)
     {
-      var error_txt = 'Error starting server!'
-      var error_render = <p className='App-error'>{error_txt}</p>
+      error_txt = 'Error starting server!'
+      error_render = <p className='App-error'>{error_txt}</p>
     }
     else if (this.state.requestStatus === 3)
     {
-      var error_txt = 'Server starting!'
-      var error_render = <p className='App-success'>{error_txt}</p>
+      error_txt = 'Server starting!'
+      error_render = <p className='App-success'>{error_txt}</p>
     }
     else if (this.state.requestStatus === -1)
     {
-      var error_txt = 'Something went wrong :( Tell James'
-      var error_render = <p className='App-error'>{error_txt}</p>
+      error_txt = 'Something went wrong :( Tell James'
+      error_render = <p className='App-error'>{error_txt}</p>
     }
-    else { var error_txt = '' }
+    else { error_txt = '' }
     return (
       <div className="App">
         <header className="App-header">

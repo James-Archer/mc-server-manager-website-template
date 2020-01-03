@@ -37,6 +37,11 @@
   font-weight: bold;
 }
 
+.App-success {
+  color: whitesmoke;
+  font-weight: bold;
+}
+
 .PwdInput {
   padding: 2px;
   margin: 1%;

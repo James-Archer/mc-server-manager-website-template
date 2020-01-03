@@ -1,6 +1,7 @@
 .vscode/*
 /web-app/node_modules/*
 /web-app/build/*
+/web-app/package-lock.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

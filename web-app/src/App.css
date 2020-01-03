@@ -42,6 +42,10 @@
   font-weight: bold;
 }
 
+.App-loading {
+  height: 10vmin;
+}
+
 .PwdInput {
   padding: 2px;
   margin: 1%;

@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'request';
 import logo from './logo.svg';
+import loading from './loading.svg';
 import './App.css';
 
 const API_ENDPOINT='https://cy67vlzf05.execute-api.ap-southeast-2.amazonaws.com/default/start-minecraft-server'
@@ -102,6 +103,7 @@ class App extends React.Component {
     if (event.key === "Enter")
     {
       console.log("Submitting password for bumble: " + this.state.bumblePassword)
+      this.setState({requestStatus: 4})
       this.postRequest1()
     }
   }
@@ -136,6 +138,10 @@ class App extends React.Component {
     {
       error_txt = 'Something went wrong :( Tell James'
       error_render = <p className='App-error'>{error_txt}</p>
+    }
+    else if (this.state.requestStatus === 4)
+    {
+      error_render = <img className="App-loading" src={loading} />
     }
     else { error_txt = '' }
     return (

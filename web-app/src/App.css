@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 20vmin;
+  height: 25vmin;
   pointer-events: none;
 }
 
@@ -20,12 +20,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(15px + 2vmin);
   color: white;
 }
 
 .App-Header {
-  font-size: calc(20px + 2vmin);
+  font-size: calc(25px + 2vmin);
 }
 
 .App-link {
@@ -46,10 +46,15 @@
   height: 10vmin;
 }
 
+.App-running {
+  font-size: calc(15px + 2vmin);
+  padding: 30px;
+}
+
 .PwdInput {
   padding: 2px;
   margin: 1%;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(15px + 2vmin);
   text-align: center;
 }
 

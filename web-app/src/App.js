@@ -4,8 +4,8 @@ import logo from './logo.svg';
 import loading from './loading.svg';
 import './App.css';
 
-const POST_API_ENDPOINT='https://cy67vlzf05.execute-api.ap-southeast-2.amazonaws.com/default/start-minecraft-server'
-const STATUS_API_ENDPOINT='https://cy67vlzf05.execute-api.ap-southeast-2.amazonaws.com/default/status-minecraft-server'
+const POST_API_ENDPOINT='<YOUR start-minecraft-server API ENDPOINT HERE'
+const STATUS_API_ENDPOINT='YOUR status-minecraft-server API ENDPOINT HERE'
 
 class App extends React.Component {
 
@@ -14,12 +14,10 @@ class App extends React.Component {
     super(props);
     this.state = 
     {
-      bumblePassword: '',
-      lotrPassword: '',
+      serverPassword: '',
       requestStatus: 0,
       appState: 0,
-      bumbleState: false,
-      lotrState: false
+      serverState: false,
     };
   }
 
@@ -40,20 +38,19 @@ class App extends React.Component {
           // Good return value
           const values = JSON.parse(body)
           this.setState({
-              bumbleState: values["bumble"],
-              lotrState: values["lotr"],
+              serverState: values["<SERVER-NAME-HERE>"],
               appState: 1
             })
         }
         });
   }
 
-  postRequest1()
+  postRequest()
   {
   request.post(POST_API_ENDPOINT,
     {form:{
-        server: "bumble",
-        password: this.state.bumblePassword
+        server: "<SERVER-NAME-HERE>",
+        password: this.state.serverPassword
     }}, (error, response, body)=>
     {
       if (error)
@@ -80,66 +77,19 @@ class App extends React.Component {
       });
   }
 
-  postRequest2()
-  {
-  request.post(POST_API_ENDPOINT,
-    {form:{
-        server: "lotr",
-        password: this.state.lotrPassword
-    }}, (error, response, body)=>
-    {
-      if (error)
-      {
-        console.error('error:', error); // Print the error if one occurred
-      }
-      else if(response.statusCode === 200)
-      {
-        console.log('response:', body); // Print the error if one occurred
-        const bdy = JSON.parse(body)
-        if (bdy[0] === 'Incorrect password!')
-        {
-          this.setState({requestStatus: 1})
-        }
-        else{
-          if (bdy[3] === true)
-          {
-            this.setState({requestStatus: 3})
-          }
-          else{ this.setState({requestStatus: 2}) }
-        }
-      }
-      });
-  }
 
-  setPassword1(event)
+  setPassword(event)
   {
     var pw = event.target.value
-    this.setState({bumblePassword: pw})
+    this.setState({serverPassword: pw})
   }
 
-  setPassword2(event)
-  {
-    var pw = event.target.value
-    this.setState({lotrPassword: pw})
-  }
-
-  keyPressed1(event)
+  keyPressed(event)
   {
     if (event.key === "Enter")
     {
-      console.log("Submitting password for bumble: " + this.state.bumblePassword)
       this.setState({requestStatus: 4})
-      this.postRequest1()
-    }
-  }
-
-  keyPressed2(event)
-  {
-    if (event.key === "Enter")
-    {
-      console.log("Submitting password for lotr: " + this.state.lotrPassword)
-      this.setState({requestStatus: 4})
-      this.postRequest2()
+      this.postRequest()
     }
   }
 
@@ -163,7 +113,7 @@ class App extends React.Component {
     }
     else if (this.state.requestStatus === -1)
     {
-      error_txt = 'Something went wrong :( Tell James'
+      error_txt = 'Something went wrong :('
       error_render = <p className='App-error'>{error_txt}</p>
     }
     else if (this.state.requestStatus === 4)
@@ -189,33 +139,21 @@ class App extends React.Component {
 
     else{
       var error_render = this.getErrorState()
-      var bumble_render, lotr_render
-      // render bumble
-      if (this.state.bumbleState)
+      var server_render
+      // render server stuff
+      if (this.state.serverState)
       {
-        bumble_render = <div className="App-running">Bumble is running!</div>
+        server_render = <div className="App-running">SERVER-NAME is running!</div>
       }
       else {
-        bumble_render = <div>Bumble
+        server_render = <div>SERVER-NAME
         <input type="password" className='PwdInput' placeholder='Password'
-          value={this.state.bumblePassword} 
-          onChange={this.setPassword1.bind(this)}
-          onKeyPress={this.keyPressed1.bind(this)}
+          value={this.state.serverPassword} 
+          onChange={this.setPassword.bind(this)}
+          onKeyPress={this.keyPressed.bind(this)}
           /></div>
       }
-      // render lotr 
-      if (this.state.lotrState)
-      {
-        lotr_render = <div className="App-running">Lord of the Rings is running!</div>
-      }
-      else {
-        lotr_render = <div>Lord of the Rings
-        <input type="password" className='PwdInput' placeholder='Password'
-          value={this.state.lotrPassword} 
-          onChange={this.setPassword2.bind(this)}
-          onKeyPress={this.keyPressed2.bind(this)}
-          /></div>
-      }
+      
       return (
         <div className="App">
           <header className="App-header">
@@ -223,8 +161,7 @@ class App extends React.Component {
             <p className="App-Header">
               Start the servers!
             </p>
-            {bumble_render}
-            {lotr_render}
+            {server_render}
             {error_render}
           </header>
         </div>
